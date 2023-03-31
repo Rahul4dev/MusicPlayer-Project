@@ -1,8 +1,7 @@
 const express = require('express');
-const app = express();
-
 const mongoose = require('mongoose');
 require('dotenv').config();
+
 // Routes
 const authRoutes = require('./routes/auth');
 const songRoutes = require('./routes/song');
@@ -13,12 +12,14 @@ const User = require('./models/User');
 
 // Passport requires
 const passport = require('passport');
-const JwtStrategy = require('passport-jwt').Strategy;
-const ExtractJwt = require('passport-jwt').ExtractJwt;
+const JwtStrategy = require('passport-jwt').Strategy,
+  ExtractJwt = require('passport-jwt').ExtractJwt;
+
+const app = express();
+const port = 8000;
 
 // convert data to json format
 app.use(express.json());
-const port = 8000;
 
 // connect to MongoDB server
 // takes two arguments: which db to connect to, connection options
@@ -33,7 +34,7 @@ mongoose
     }
   )
   .then((x) => {
-    console.log('Connect to MongoDB server');
+    console.log('Connected to MongoDB server');
   })
   .catch((err) => {
     alert("Couldn't connect to MongoDB server" + err.message);
@@ -43,11 +44,11 @@ mongoose
 
 let opts = {};
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
-opts.secretOrKey = 'verysecretcodeWhichneedstobeStoredSecretly';
+opts.secretOrKey = 'verySecretCodeWhichNeedsToBeStoredSecretly';
 
 passport.use(
   new JwtStrategy(opts, function (jwt_payload, done) {
-    User.findOne({ id: jwt_payload.sub })
+    User.find({ id: jwt_payload.sub })
       .then(function (user) {
         return done(user);
       })

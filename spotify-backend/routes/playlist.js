@@ -97,7 +97,7 @@ router.post(
     playlist.songs.push(songId);
     await playlist.save();
 
-    return res.status(200).json({ playlist });
+    return res.status(200).json(playlist);
   }
 );
 

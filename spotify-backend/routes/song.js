@@ -1,9 +1,10 @@
 const express = require('express');
 const passport = require('passport');
-const router = express.Router();
 
 const Song = require('../models/Song');
 const User = require('../models/User');
+
+const router = express.Router();
 
 router.post(
   '/create',
@@ -20,12 +21,9 @@ router.post(
     }
     const artist = req.user._id;
     const songDetails = { name, thumbnail, track, artist };
-    try {
-      const createdSong = await Song.create(songDetails);
-      return res.status(200).json(createdSong);
-    } catch {
-      console.log(error);
-    }
+
+    const createdSong = await Song.create(songDetails);
+    return res.status(200).json(createdSong);
   }
 );
 
@@ -36,52 +34,40 @@ router.get(
   '/get/mysongs',
   passport.authenticate('jwt', { session: false }),
   async (req, res) => {
-    // we have the user already
-    const currentUser = req.user;
     // we need to check those songs which have song.artist === currentUser._id
-    try {
-      const songs = await Song.find({ artist: currentUser._id });
-      return res.status(200).json({ data: songs });
-    } catch (err) {
-      console.log(err);
-    }
+
+    const songs = await Song.find({ artist: req.user._id });
+    return res.status(200).json({ data: songs });
   }
 );
 
 // Second: get route for artist songs
-
+// I will send the artist id and I want to see all songs that artist has published.
 router.get(
-  '/get/artist',
+  '/get/artist/:artistId',
   passport.authenticate('jwt', { session: false }),
   async (req, res) => {
-    const { artistId } = req.body;
+    const { artistId } = req.params;
 
-    try {
-      const artist = await User.find({ _id: artistId });
-      if (!artist) {
-        return res.status(301).json({ error: 'artist not found' });
-      }
-      const songs = await Song.find({ artist: artistId });
-      return res.status(200).json({ data: songs });
-    } catch (err) {
-      console.log(err.message);
+    const artist = await User.find({ _id: artistId });
+    if (!artist) {
+      return res.status(301).json({ error: 'artist not found' });
     }
+    const songs = await Song.find({ artist: artistId });
+    return res.status(200).json({ data: songs });
   }
 );
 
 // third: get route for song name
 
 router.get(
-  '/get/songname',
+  '/get/songname/:songName',
   passport.authenticate('jwt', { session: false }),
   async (req, res) => {
-    const { songName } = req.body;
-    try {
-      const songs = await Song.find({ name: songName });
-      return res.status(200).json({ data: songs });
-    } catch (err) {
-      console.log(err.message);
-    }
+    const { songName } = req.params;
+
+    const songs = await Song.find({ name: songName });
+    return res.status(200).json({ data: songs });
   }
 );
 
