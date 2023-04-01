@@ -6,12 +6,12 @@ const User = require('../models/User');
 
 const router = express.Router();
 
-// req.user gets the user by passport.authentication
-// step 1: create song json object {name, thumbnail, track} from body, artist from user
 router.post(
   '/create',
   passport.authenticate('jwt', { session: false }),
   async (req, res) => {
+    // req.user gets the user by passport.authentication
+    // step 1: create song json object {name, thumbnail, track} from body, artist from user
     const { name, thumbnail, track } = req.body;
     if (!name || !thumbnail || !track) {
       return res
