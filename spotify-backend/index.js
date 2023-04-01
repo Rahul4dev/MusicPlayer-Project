@@ -23,6 +23,7 @@ app.use(express.json());
 
 // connect to MongoDB server
 // takes two arguments: which db to connect to, connection options
+mongoose.set('strictQuery', true);
 mongoose
   .connect(
     'mongodb+srv://rahul4devMongo:' +
@@ -33,7 +34,7 @@ mongoose
       useUnifiedTopology: true,
     }
   )
-  .then((x) => {
+  .then(() => {
     console.log('Connected to MongoDB server');
   })
   .catch((err) => {
@@ -48,13 +49,18 @@ opts.secretOrKey = 'verySecretCodeWhichNeedsToBeStoredSecretly';
 
 passport.use(
   new JwtStrategy(opts, function (jwt_payload, done) {
-    User.find({ id: jwt_payload.sub })
-      .then(function (user) {
-        return done(user);
-      })
-      .catch(function (err) {
-        return console.log(err), done(false);
-      });
+    User.findOne({ id: jwt_payload.sub }, function (err, user) {
+      // done(error, doesTheUserExist)
+      if (err) {
+        return done(err, false);
+      }
+      if (user) {
+        return done(null, user);
+      } else {
+        return done(null, false);
+        // or you could create a new account
+      }
+    });
   })
 );
 

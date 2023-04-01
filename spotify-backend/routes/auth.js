@@ -20,7 +20,7 @@ router.post('/register', async (req, res) => {
   // code run this line means we got new User.
   // Step 3: Create a new User in the database.
   // we do not store password in the plain text in the database. we encrypt them first.
-  const hashedPassword = bcrypt.hash(password, 10);
+  const hashedPassword = await bcrypt.hash(password, 10);
   const newUserData = {
     email,
     password: hashedPassword,
@@ -29,13 +29,14 @@ router.post('/register', async (req, res) => {
     userName,
   };
   const newUser = await User.create(newUserData);
-
+  console.log(newUserData);
   // step 4: create a authentication object for the new user: create auth token.
 
   const token = await getToken(email, newUser);
 
   // step 5: return the result to the user
   const userToReturn = { ...newUser.toJSON(), token };
+  console.log(userToReturn);
   delete userToReturn.password;
   return res.status(200).json(userToReturn);
 });
@@ -52,6 +53,7 @@ router.post('/login', async (req, res) => {
   }
   // step 3: if the user is email exist, check if the password is correct, id not credentials are invalid.
   // since the password is stored in hashed format, we have to compare the password against the hashed password on the same parameters on which the hashed password was created. This comparison is done using the bcrypt algorithm.
+  console.log(user);
 
   const isPasswordValid = await bcrypt.compare(password, user.password);
   if (!isPasswordValid) {

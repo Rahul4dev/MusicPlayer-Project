@@ -1,18 +1,20 @@
 const express = require('express');
 const passport = require('passport');
-const router = express.Router();
+
 const Playlist = require('../models/Playlist');
 const User = require('../models/User');
 const Song = require('../models/Song');
 
+const router = express.Router();
 // Route 1: create a playlist
 router.post(
   '/create',
-  passport.authenticate('jwt', { session: false }, async (req, res) => {
+  passport.authenticate('jwt', { session: false }),
+  async (req, res) => {
     const currentUser = req.user;
     const { name, thumbnail, songs } = req.body;
     if (!name || !thumbnail || !songs) {
-      res.return(404).json({ error: 'Not Found' });
+      return res.status(301).json({ err: 'Insufficient data' });
     }
     const playlistData = {
       name,
@@ -23,7 +25,7 @@ router.post(
     };
     const playlist = await Playlist.create(playlistData);
     return res.status(200).json(playlist);
-  })
+  }
 );
 
 // Route 2: get a playlist by id
@@ -38,7 +40,7 @@ router.get(
     // need to find the id
     const playlist = await Playlist.findOne({ _id: playlistId });
     if (!playlist) {
-      return res.status(404).json({ message: 'playlist not found' });
+      return res.status(301).json({ message: 'playlist not found' });
     }
 
     return res.status(200).json(playlist);
@@ -55,7 +57,7 @@ router.get(
     // we can check if artistId exist?
     const artist = await User.findOne({ _id: artistId });
     if (!artist) {
-      return res.status(304).json({ err: 'artist not found' });
+      return res.status(304).json({ error: 'artist not found' });
     }
 
     const playlists = await Playlist.find({ owner: artistId });
@@ -79,7 +81,8 @@ router.post(
 
     // step 2: check if user is owner or collaborator of the playlist
     if (
-      playlist.owner !== currentUser._id &&
+      // playlist.owner !== currentUser._id : we can't equate object to a string, we can use .equals() method
+      !playlist.owner.equals(currentUser._id) &&
       !playlist.collaborators.includes(currentUser._id)
     ) {
       return res
