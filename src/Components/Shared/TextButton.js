@@ -1,11 +1,9 @@
 import React from 'react';
 
-const TextButton = ({ text }) => {
+const TextButton = ({ link }) => {
   return (
-    <div className="cursor-pointer m-4">
-      <div className="font-normal text-lg text-gray-400 hover:text-white">
-        {text}
-      </div>
+    <div className="font-normal cursor-pointer m-4 text-lg text-gray-400 hover:text-white">
+      <a href={`/${link}`}>{link}</a>
     </div>
   );
 };

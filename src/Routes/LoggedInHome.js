@@ -7,7 +7,7 @@ import IconText from '../Components/Shared/IconText';
 import TextButton from '../Components/Shared/TextButton';
 import { Icon } from '@iconify/react';
 
-const HomeComponent = () => {
+const LoggedInHomeComponent = () => {
   const focusCardData = [
     {
       title: 'Boom diggy diggy',
@@ -62,7 +62,7 @@ const HomeComponent = () => {
           <div className="mt-0 ml-2 sm:w-15 w-25">
             <img src={spotify_logo} alt="logo" width={220} />
           </div>
-          <div className="ml-2">
+          <div className="ml-4">
             <IconText
               iconName="material-symbols:home-rounded"
               displayText="Home"
@@ -76,6 +76,11 @@ const HomeComponent = () => {
             <IconText
               iconName="solar:music-library-2-outline"
               displayText="Library"
+              isActive={false}
+            />
+            <IconText
+              iconName="game-icons:love-song"
+              displayText="My Music"
               isActive={false}
             />
             <div className="w-full mt-10"></div>
@@ -114,18 +119,21 @@ const HomeComponent = () => {
               className="hover:text-white text-gray-400  bg-black rounded-full m-2 "
             />
           </div>
-          <div className="rightSide flex w-1/2 items-center h-full">
-            <div className="w-3/5 flex justify-around">
+          <div className="rightSide flex w-3/5 items-center h-full">
+            <div className="w-2/3 flex justify-around">
               <TextButton link="Premium" />
               <TextButton link="Support" />
               <TextButton link="Download" />
             </div>
-            <div className="w-2/5 flex items-center h-full justify-around mr-4">
+            <div className="w-1/3 flex items-center h-full justify-around mr-4">
               <div className="border-white border-l-2 h-1/2 "></div>
 
-              <TextButton link="Sign up" />
-              <div className="bg-white rounded-full h-3/5 px-8 text-black font-semibold items-center flex justify-center">
-                <a href="/login">Log in</a>
+              <div className="font-normal cursor-pointer m-4 text-lg text-gray-400 hover:text-white">
+                Upload Song
+              </div>
+
+              <div className="rounded-full bg-purple-400 h-12 w-12 cursor-pointer text-black font-semibold items-center flex justify-center">
+                <p>RS</p>
               </div>
             </div>
           </div>
@@ -169,59 +177,4 @@ const PlaylistView = ({ titleText, cardsData }) => {
   );
 };
 
-export default HomeComponent;
-
-/* <Card
-          title={'Boom diggy diggy'}
-          description={
-            ' The video was directed by Luke Biggins, Roger Russell and Knight himself. The music video starred Knight and Jasmine Walia'
-          }
-          img={
-            'https://i.scdn.co/image/ab67616d0000b27382f0b09ca518a1563175ed85'
-          }
-        />
-        <Card
-          title={'Manike'}
-          description={
-            'the Sri Lankan Sinhala-language song Manike Mage Hithe that took the world by storm last year, Sung by Yohani'
-          }
-          img={
-            'https://c.saavncdn.com/933/Manike-From-Thank-God-Hindi-2022-20220920201002-500x500.jpg'
-          }
-        />
-        <Card
-          title={'Soch Liya'}
-          description={
-            'Song of film Radhe shyam, lyrics by Manoj and sung by Arijit'
-          }
-          img={
-            'https://i.scdn.co/image/ab67616d0000b27359dac52af549bd78c1cfeb9b'
-          }
-        />
-        <Card
-          title={'Kyun Dhunde'}
-          description={
-            'Kyun Dhunde Lyrics by Vilen is new released Hindi song in his voice, Vilen has made its tune.'
-          }
-          img={
-            'https://c.saavncdn.com/237/Kyun-Dhunde-1-Min-Music-Hindi-2022-20220715100147-500x500.jpg'
-          }
-        />
-        <Card
-          title={'Baarish Ki Jaaye '}
-          description={
-            'Baarish Ki Jaaye is a Hindi language song and is sung by B Praak. '
-          }
-          img={
-            'https://m.media-amazon.com/images/M/MV5BZmUxOWM3MzctNmMyYy00Y2QyLTgwZmEtZmEzY2QzZjQyZTE5XkEyXkFqcGdeQXVyMTMxMDEzODUw._V1_.jpg'
-          }
-        />
-        <Card
-          title={'Adhoore Hum'}
-          description={
-            'Adhoore Lyrics by Prasoon Joshi from Many Moods Of Vishal-Shekhar'
-          }
-          img={
-            'https://c.saavncdn.com/522/Adhoore-Hum-Hindi-2023-20230321150901-500x500.jpg'
-          }
-        /> */
+export default LoggedInHomeComponent;

@@ -1,7 +1,14 @@
 import React from 'react';
 import { Icon } from '@iconify/react';
 
-const TextInput = ({ type, label, placeholder, className }) => {
+const TextInput = ({
+  type,
+  label,
+  placeholder,
+  className,
+  value,
+  setValue,
+}) => {
   //const [isOpenEye, setIsOpenEye] = useState('mdi:eye-outline');
   const toggleEye = (e) => {
     console.dir(e.target.parentElement.childNodes[1]);
@@ -17,7 +24,8 @@ const TextInput = ({ type, label, placeholder, className }) => {
         type={type}
         placeholder={placeholder}
         className="p-2 border border-solid border-gray-400 rounded-lg placeholder:gray-500"
-        id={type}
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
       />
       {label === 'password' && (
         <Icon

@@ -12,7 +12,7 @@ const IconText = ({ iconName, displayText, isActive }) => {
         />
       </div>
       <div
-        className={`text-lg font-semibold mr-0 ${
+        className={`text-lg font-semibold px-2 mr-0 ${
           isActive ? 'text-white' : 'text-gray-400'
         } hover:text-white`}
       >

@@ -1,11 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Icon } from '@iconify/react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import SocialButtons from '../Components/Shared/SocialButtons';
 import TextInput from '../Components/Shared/TextInput';
+import { makeAuthenticatedPOSTRequest } from '../utils/serverHelper';
+import { useCookies } from 'react-cookie';
 
 const LoginComponent = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const [cookie, setCookie] = useCookies(['token']);
+  const navigate = useNavigate();
+
+  const login = async () => {
+    const data = { email, password };
+
+    const response = await makeAuthenticatedPOSTRequest('/auth/login', data);
+
+    if (response && !response.err) {
+      const token = response.token;
+      const date = new Date();
+      date.setDate(date.getDate() + 30);
+      setCookie('token', token, { path: '/', expires: date });
+
+      alert('Log in Success');
+      navigate('/home');
+    } else {
+      alert('Log in Failure');
+    }
+  };
+
   return (
     <div className="w-full h-full flex flex-col items-center ">
       <div className="logo  border-b border-solid border-gray-300 w-full flex justify-center">
@@ -54,9 +80,17 @@ const LoginComponent = () => {
           label="Email address or Username"
           placeholder="Email address or Username"
           className="my-6"
+          value={email}
+          setValue={setEmail}
         />
 
-        <TextInput type="password" label="password" placeholder="Password" />
+        <TextInput
+          type="password"
+          label="password"
+          placeholder="Password"
+          value={password}
+          setValue={setPassword}
+        />
       </div>
 
       <p className="font-semibold underline text-left w-1/2">
@@ -75,7 +109,13 @@ const LoginComponent = () => {
           </label>
         </div>
 
-        <button className="uppercase bg-green-500 font-semibold p-3 px-10 rounded-full">
+        <button
+          className="bg-green-500 font-semibold p-3 px-10 rounded-full"
+          onClick={(e) => {
+            e.preventDefault();
+            login();
+          }}
+        >
           Log in
         </button>
       </div>
