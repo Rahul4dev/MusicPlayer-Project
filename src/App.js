@@ -16,7 +16,7 @@ function App() {
         {cookie.token ? (
           // Logged In Routes
           <Routes>
-            <Route path="/" element={<HomeComponent />} />
+            <Route path="/" element={<HelloComponent />} />
             <Route path="/home" element={<LoggedInHomeComponent />} />
             <Route path="/uploadSong" element={<UploadSongComponent />} />
 
@@ -25,10 +25,13 @@ function App() {
         ) : (
           // Logged Out Routes
           <Routes>
-            <Route path="*" element={<Navigate to="/login" />} />
             <Route path="/home" element={<HomeComponent />} />
-            <Route path="/login" element={<LoginComponent />} />
+            <Route
+              path="/login"
+              element={<LoginComponent cookie={setCookie} />}
+            />
             <Route path="/signup" element={<SignupComponent />} />
+            <Route path="*" element={<Navigate to="/login" />} />
           </Routes>
         )}
       </BrowserRouter>
@@ -36,4 +39,7 @@ function App() {
   );
 }
 
+const HelloComponent = () => {
+  return <div>This is hello from component</div>;
+};
 export default App;

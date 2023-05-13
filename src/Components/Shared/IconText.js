@@ -4,7 +4,7 @@ import { Icon } from '@iconify/react';
 const IconText = ({ iconName, displayText, isActive }) => {
   return (
     <div className="flex items-center justify-start cursor-pointer">
-      <div className="sm:px-0 px-4 py-2">
+      <div className="sm:px-2 px-0 py-2">
         <Icon
           icon={iconName}
           color={isActive ? 'white' : 'gray'}

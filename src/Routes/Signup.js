@@ -17,6 +17,7 @@ const SignupComponent = () => {
   const [lastName, setLastName] = useState('');
 
   const [cookie, setCookie] = useCookies(['token']);
+  console.log(cookie);
   const navigate = useNavigate();
 
   const signUp = async () => {

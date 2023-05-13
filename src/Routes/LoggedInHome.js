@@ -128,9 +128,7 @@ const LoggedInHomeComponent = () => {
             <div className="w-1/3 flex items-center h-full justify-around mr-4">
               <div className="border-white border-l-2 h-1/2 "></div>
 
-              <div className="font-normal cursor-pointer m-4 text-lg text-gray-400 hover:text-white">
-                Upload Song
-              </div>
+              <TextButton link="Upload Song" />
 
               <div className="rounded-full bg-purple-400 h-12 w-12 cursor-pointer text-black font-semibold items-center flex justify-center">
                 <p>RS</p>

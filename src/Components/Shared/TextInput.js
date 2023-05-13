@@ -23,7 +23,7 @@ const TextInput = ({
       <input
         type={type}
         placeholder={placeholder}
-        className="p-2 border border-solid border-gray-400 rounded-lg placeholder:gray-500"
+        className="p-2 border text-black border-solid border-gray-400 rounded-lg placeholder:gray-500"
         value={value}
         onChange={(e) => setValue(e.target.value)}
       />

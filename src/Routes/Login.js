@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import { Icon } from '@iconify/react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 
+import { makeAuthenticatedPOSTRequest } from '../utils/serverHelper';
 import SocialButtons from '../Components/Shared/SocialButtons';
 import TextInput from '../Components/Shared/TextInput';
-import { makeAuthenticatedPOSTRequest } from '../utils/serverHelper';
-import { useCookies } from 'react-cookie';
 
 const LoginComponent = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const [cookie, setCookie] = useCookies(['token']);
+
   const navigate = useNavigate();
 
   const login = async () => {

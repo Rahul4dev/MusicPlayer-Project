@@ -1,19 +1,39 @@
 import React, { useState } from 'react';
+import { Icon } from '@iconify/react';
+import { useNavigate } from 'react-router-dom';
 
 import spotify_logo from '../asset/Spotify-White-Logo.wine.png';
 
+import CloudinaryUpload from '../Components/Upload/CloudinaryUpload';
 import IconText from '../Components/Shared/IconText';
 import TextButton from '../Components/Shared/TextButton';
-import { Icon } from '@iconify/react';
 import TextInput from '../Components/Shared/TextInput';
+import Button from '../Components/Shared/Button';
+import { makeAuthenticatedPOSTRequest } from '../utils/serverHelper';
 
 const UploadSong = () => {
-  const [value, setValue] = useState('');
+  const [name, setName] = useState('');
+  const [thumbnail, setThumbnail] = useState('');
+  const [playlistUrl, setPlaylistUrl] = useState('');
+  const [uploadedSongName, setUploadedSongName] = useState();
+  const navigate = useNavigate();
+
+  const submitSongHandler = async () => {
+    const data = { name, thumbnail, track: playlistUrl };
+    const response = await makeAuthenticatedPOSTRequest('/song/create', data);
+    if (response.err) {
+      alert('Error creating song');
+      return;
+    }
+    alert('Song Successfully created');
+    navigate('/home');
+  };
+
   return (
     <div className="h-full w-full flex">
       <div className="sideBar h-full w-1/5 bg-black text-white flex flex-col justify-between pb-10">
         <div>
-          <div className="mt-0 ml-2 sm:w-15 w-25">
+          <div className="mt-0 ml-2 sm:w-25 w-15">
             <img src={spotify_logo} alt="logo" width={220} />
           </div>
           <div className="ml-4">
@@ -86,7 +106,7 @@ const UploadSong = () => {
                 Upload Song
               </div>
 
-              <div className="rounded-full bg-purple-400 h-12 w-12 cursor-pointer text-black font-semibold items-center flex justify-center">
+              <div className="rounded-full bg-purple-600 h-12 w-12 cursor-pointer text-white font-semibold items-center flex justify-center">
                 <p>RS</p>
               </div>
             </div>
@@ -103,31 +123,54 @@ const UploadSong = () => {
                 label={'Song Name'}
                 placeholder={'Song Name'}
                 className={''}
-                value={value}
-                setValue={setValue}
+                value={name}
+                setValue={setName}
               />
             </div>
             <div className="w-1/2">
               <TextInput
                 type={'text'}
                 label={'Thumbnail URL'}
-                placeholder={'thumbnail'}
+                placeholder={'Thumbnail'}
                 className={''}
-                value={value}
-                setValue={setValue}
+                value={thumbnail}
+                setValue={setThumbnail}
               />
             </div>
           </div>
-          <div className="w-2/3">
-            <TextInput
-              type={'text'}
-              label={'Thumbnail URL'}
-              placeholder={'thumbnail'}
-              className={''}
-              value={value}
-              setValue={setValue}
-            />
+          <div className="w-2/3 mt-4">
+            {playlistUrl && (
+              <TextInput
+                type={'text'}
+                label={'Song Description'}
+                placeholder={'Describe your Song'}
+                className={''}
+                value={playlistUrl}
+                setValue={setPlaylistUrl}
+              />
+            )}
           </div>
+        </div>
+        <div className="ml-8">
+          {uploadedSongName ? (
+            <div className="bg-white text-black rounded-full p-3">
+              {uploadedSongName.substring(0, 30)}...
+            </div>
+          ) : (
+            <CloudinaryUpload
+              setName={setUploadedSongName}
+              setUrl={setPlaylistUrl}
+            />
+          )}
+        </div>
+        <div className="p-4">
+          {uploadedSongName && (
+            <Button
+              buttonName={'Submit Song'}
+              className={'ml-4 w-40'}
+              onClick={submitSongHandler}
+            />
+          )}
         </div>
       </div>
     </div>
