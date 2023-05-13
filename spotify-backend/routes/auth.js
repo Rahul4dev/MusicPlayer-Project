@@ -53,9 +53,9 @@ router.post('/login', async (req, res) => {
   }
   // step 3: if the user is email exist, check if the password is correct, id not credentials are invalid.
   // since the password is stored in hashed format, we have to compare the password against the hashed password on the same parameters on which the hashed password was created. This comparison is done using the bcrypt algorithm.
-  console.log(user);
 
   const isPasswordValid = await bcrypt.compare(password, user.password);
+  console.log(user.password, isPasswordValid);
   if (!isPasswordValid) {
     return res.status(403).json({ error: 'invalid credentials' });
   }
