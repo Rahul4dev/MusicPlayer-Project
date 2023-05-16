@@ -8,6 +8,9 @@ const TextButton = ({ link }) => {
   } else if (link === 'Sign up') {
     linkTo = 'Sign Up';
     link = 'signup';
+  } else if (link === 'My Music') {
+    linkTo = 'My Music';
+    link = 'myMusic';
   }
 
   return (

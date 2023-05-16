@@ -2,6 +2,17 @@ import React from 'react';
 import { Icon } from '@iconify/react';
 
 const IconText = ({ iconName, displayText, isActive }) => {
+  let linkTo = displayText;
+  if (displayText === 'My Music') {
+    linkTo = 'My Music';
+    displayText = 'myMusic';
+  } else if (displayText === 'Create Playlist') {
+    linkTo = 'Create Playlist';
+    displayText = 'createPlaylist';
+  } else if (displayText === 'Liked Songs') {
+    linkTo = 'Liked Songs';
+    displayText = 'likedSongs';
+  }
   return (
     <div className="flex items-center justify-start cursor-pointer">
       <div className="sm:px-2 px-0 py-2">
@@ -16,7 +27,7 @@ const IconText = ({ iconName, displayText, isActive }) => {
           isActive ? 'text-white' : 'text-gray-400'
         } hover:text-white`}
       >
-        {displayText}
+        <a href={`/${displayText}`}>{linkTo}</a>
       </div>
     </div>
   );

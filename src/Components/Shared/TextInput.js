@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Icon } from '@iconify/react';
 
 const TextInput = ({
@@ -9,11 +9,17 @@ const TextInput = ({
   value,
   setValue,
 }) => {
-  //const [isOpenEye, setIsOpenEye] = useState('mdi:eye-outline');
-  const toggleEye = (e) => {
-    console.dir(e.target.parentElement.childNodes[1]);
-    // e.target.parentElement.childNodes[1].type.toggle('text');
-    // console.log(e.target.parentElement.childNodes[2]);
+  const [isOpenEye, setIsOpenEye] = useState('mdi:eye-outline');
+  const [passwordToText, setPasswordToText] = useState(type);
+
+  const toggleEye = () => {
+    if (isOpenEye === 'mdi:eye-outline') {
+      setIsOpenEye('mdi:eye-off-outline');
+      setPasswordToText('text');
+    } else {
+      setIsOpenEye('mdi:eye-outline');
+      setPasswordToText('password');
+    }
   };
   return (
     <div
@@ -21,15 +27,15 @@ const TextInput = ({
     >
       <label className="">{label}</label>
       <input
-        type={type}
+        type={passwordToText}
         placeholder={placeholder}
         className="p-2 border text-black border-solid border-gray-400 rounded-lg placeholder:gray-500"
         value={value}
         onChange={(e) => setValue(e.target.value)}
       />
-      {label === 'password' && (
+      {type === 'password' && (
         <Icon
-          icon="mdi:eye-off-outline"
+          icon={isOpenEye}
           width="24"
           height="24"
           className="absolute top-8 right-4 "
