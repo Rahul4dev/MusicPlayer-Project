@@ -6,7 +6,9 @@ const songContext = createContext({
 });
 
 const SongContextProvider = (props) => {
-  return <songContext.Provider>{props.children}</songContext.Provider>;
+  return (
+    <songContext.Provider value={''}>{props.children}</songContext.Provider>
+  );
 };
 
 export default SongContextProvider;

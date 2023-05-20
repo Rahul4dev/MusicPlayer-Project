@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
+
 import { Icon } from '@iconify/react';
 
-import styles from './LoggedInHome.module.css';
-
 import spotify_logo from '../asset/Spotify-White-Logo.wine.png';
-import SongCard from '../Components/Songs/SongCard';
+
+import PlaylistView from '../Components/Songs/PlaylistView';
 
 import IconText from '../Components/Shared/IconText';
 import TextButton from '../Components/Shared/TextButton';
+import SongPlayer from '../Components/Songs/SongPlayer';
 
 const LoggedInHomeComponent = () => {
   const focusCardData = [
@@ -56,30 +57,10 @@ const LoggedInHomeComponent = () => {
         'https://c.saavncdn.com/522/Adhoore-Hum-Hindi-2023-20230321150901-500x500.jpg',
     },
   ];
-
-  const [showSoundbar, setShowSoundbar] = useState('hidden');
-  const [soundMute, setSoundMute] = useState('ic:twotone-volume-up');
-
-  const soundEnterHandler = () => {
-    setShowSoundbar('block');
-  };
-
-  const soundLeaveHandler = () => {
-    setShowSoundbar('hidden');
-  };
-
-  const soundActionHandler = () => {
-    if (soundMute === 'ic:twotone-volume-up') {
-      setSoundMute('ic:baseline-volume-off');
-    } else {
-      setSoundMute('ic:twotone-volume-up');
-    }
-  };
-
   return (
-    <div className="h-full w-full  bg-app-black">
+    <div className="h-full w-full  bg-app-black overflow-x-hidden">
       <div className="h-9/10 w-full flex">
-        <div className="sideBar h-full w-1/5 bg-black text-white flex flex-col justify-between pb-10">
+        <div className="sideBar h-full w-1/5  bg-black text-white flex flex-col justify-between pb-10">
           <div>
             <div className="mt-0 ml-2 sm:w-15 w-25">
               <img src={spotify_logo} alt="logo" width={220} />
@@ -127,7 +108,7 @@ const LoggedInHomeComponent = () => {
             </div>
           </div>
         </div>
-        <div className="mainContent h-full w-4/5 bg-app-black overflow-auto text-white">
+        <div className="mainContent h-full w-4/5  bg-app-black overflow-y-auto  text-white">
           <div className="navbar w-full h-1/10 bg-black bg-opacity-30 flex justify-between items-center">
             <div className="leftSide flex cursor-pointer ml-4">
               <Icon
@@ -172,126 +153,7 @@ const LoggedInHomeComponent = () => {
           </div>
         </div>
       </div>
-      <div className="songPlayer w-full h-1/10 bg-black bg-opacity-30 text-white flex items-center px-4">
-        <div className="leftSide flex items-center  w-1/4">
-          <img
-            src="https://c.saavncdn.com/933/Manike-From-Thank-God-Hindi-2022-20220920201002-500x500.jpg"
-            className="w-20 h-20 rounded-[12px]"
-            alt="music"
-          />
-          <div className="pl-4">
-            <div className="hover:underline cursor-pointer mb-2 text-base ">
-              Music Name
-            </div>
-            <div className="hover:underline cursor-pointer text-sm text-gray-500 hover:text-white">
-              Singer Name
-            </div>
-          </div>
-          <div className="flex ml-8">
-            <Icon
-              icon="mdi:cards-heart-outline"
-              width={25}
-              className="text-white m-4 hover:scale-125"
-            />
-            <Icon
-              icon="ph:picture-in-picture-thin"
-              width={25}
-              className="text-white m-4 hover:scale-125"
-            />
-          </div>
-        </div>
-        <div className="playbackController w-1/2 h-full flex flex-col justify-center items-center">
-          <div className="flex items-center">
-            <Icon
-              icon="ph:shuffle-fill"
-              width={25}
-              className="text-white m-2 hover:scale-125  cursor-pointer"
-            />
-            <Icon
-              icon="gg:play-track-next"
-              width={25}
-              className="text-white m-2 hover:scale-125  cursor-pointer"
-            />
-            <Icon
-              icon="material-symbols:play-circle-rounded"
-              width={50}
-              className="text-white m-2 hover:scale-125  cursor-pointer"
-            />
-            <Icon
-              icon="gg:play-track-prev"
-              width={25}
-              className="text-white m-2 hover:scale-125  cursor-pointer"
-            />
-
-            <Icon
-              icon="iconoir:repeat-once"
-              width={25}
-              className="text-white m-2 hover:scale-125  cursor-pointer"
-            />
-          </div>
-          <div
-            className={`${styles['range-slider']} w-full flex items-center justify-center rounded-full`}
-          >
-            <input type="range" id="range" min="0" max="100" defaultValue={0} />
-            <div className="ml-3">3.44 </div>
-          </div>
-        </div>
-        <div className="rightSide w-1/4 flex justify-end items-center">
-          <div className="flex justify-evenly w-1/2">
-            <Icon
-              icon="lucide:mic-2"
-              width={25}
-              className="text-white m-2 hover:scale-125  cursor-pointer"
-            />
-            <Icon
-              icon="heroicons:queue-list"
-              width={25}
-              className="text-white m-2 hover:scale-125  cursor-pointer"
-            />
-            <Icon
-              icon="tabler:devices-2"
-              width={25}
-              className="text-white m-2 hover:scale-125  cursor-pointer"
-            />
-          </div>
-          <div className="flex justify-between w-1/2">
-            <Icon
-              icon={soundMute}
-              width={25}
-              className="text-white  hover:scale-125  cursor-pointer"
-              onMouseEnter={soundEnterHandler}
-              onMouseLeave={soundLeaveHandler}
-              onClick={soundActionHandler}
-            />
-            <div
-              className={`border ${showSoundbar} border-t-4 cursor-pointer w-full h-1 rounded mt-3 ml-2 border-gray-100`}
-            ></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const PlaylistView = ({ titleText, cardsData }) => {
-  return (
-    <div className="text-white mt-8">
-      <h1 className="text-2xl font-semibold mb-5">{titleText}</h1>
-      <div className="w-full flex justify-between space-x-4">
-        {
-          // Map the card data
-          cardsData.map((card) => {
-            return (
-              <SongCard
-                title={card.title}
-                description={card.description}
-                imgUrl={card.imgUrl}
-                key={Math.random()}
-              />
-            );
-          })
-        }
-      </div>
+      <SongPlayer />
     </div>
   );
 };
