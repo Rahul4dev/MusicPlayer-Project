@@ -4,12 +4,12 @@ import { useCookies } from 'react-cookie';
 
 import SongContextProvider from './Context/songContext';
 
-import HomeComponent from './Routes/Home';
-import LoggedInHomeComponent from './Routes/LoggedInHome';
-import UploadSongComponent from './Routes/UploadSong';
-import LoginComponent from './Routes/Login';
-import SignupComponent from './Routes/Signup';
-import MyMusicComponent from './Routes/MyMusic';
+import { HomeComponent, LoginComponent, SignupComponent } from './Routes';
+import {
+  LoggedInHomeComponent,
+  MyMusicComponent,
+  UploadSongComponent,
+} from './Routes';
 
 function App() {
   const [currentSong, setCurrentSong] = useState(null);

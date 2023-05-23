@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Icon } from '@iconify/react';
-import { Howl, Howler } from 'howler';
+import { Howl } from 'howler';
 
 const SongPlayer = () => {
   const [showSoundbar, setShowSoundbar] = useState('hidden');

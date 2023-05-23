@@ -3,9 +3,8 @@ import { useCookies } from 'react-cookie';
 import { Icon } from '@iconify/react';
 import { Link, useNavigate } from 'react-router-dom';
 
-import SocialButtons from '../Components/Shared/SocialButtons';
-import TextInput from '../Components/Shared/TextInput';
-import { makeAuthenticatedPOSTRequest } from '../utils/serverHelper';
+import { SocialButtons, TextInput } from '../../Components';
+import { makeAuthenticatedPOSTRequest } from '../../utils/serverHelper';
 
 const SignupComponent = () => {
   const [email, setEmail] = useState('');

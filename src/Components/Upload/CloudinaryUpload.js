@@ -1,7 +1,7 @@
 import { openUploadWidget } from '../../utils/CloudinaryService';
 import { cloudinary_upload_preset, cloudinary_cloud } from '../../config';
 
-const CloudinaryUpload = ({ setUrl, setName }) => {
+const CloudinaryUploadButton = ({ setUrl, setName }) => {
   const uploadImageWidget = () => {
     let myUploadWidget = openUploadWidget(
       {
@@ -34,4 +34,4 @@ const CloudinaryUpload = ({ setUrl, setName }) => {
   );
 };
 
-export default CloudinaryUpload;
+export default CloudinaryUploadButton;

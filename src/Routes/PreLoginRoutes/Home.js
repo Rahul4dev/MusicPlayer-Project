@@ -1,10 +1,8 @@
 import React from 'react';
 
-import spotify_logo from '../asset/Spotify-White-Logo.wine.png';
-import SongCard from '../Components/Songs/SongCard';
+import spotify_logo from '../../asset/Spotify-White-Logo.wine.png';
+import { SongCard, IconText, TextButton } from '../../Components';
 
-import IconText from '../Components/Shared/IconText';
-import TextButton from '../Components/Shared/TextButton';
 import { Icon } from '@iconify/react';
 
 const HomeComponent = () => {
