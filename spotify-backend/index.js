@@ -40,7 +40,7 @@ mongoose
     console.log('Connected to MongoDB server');
   })
   .catch((err) => {
-    alert("Couldn't connect to MongoDB server" + err.message);
+    console.log("Couldn't connect to MongoDB server" + err.message);
   });
 
 // Passport Config to encrypt tokens
