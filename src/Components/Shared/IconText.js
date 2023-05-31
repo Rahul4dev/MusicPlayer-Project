@@ -1,5 +1,6 @@
 import React from 'react';
 import { Icon } from '@iconify/react';
+import { Link } from 'react-router-dom';
 
 const IconText = ({ iconName, displayText, isActive }) => {
   let linkTo = displayText;
@@ -14,22 +15,24 @@ const IconText = ({ iconName, displayText, isActive }) => {
     displayText = 'likedSongs';
   }
   return (
-    <div className="flex items-center justify-start cursor-pointer">
-      <div className="sm:px-2 px-0 py-2">
-        <Icon
-          icon={iconName}
-          color={isActive ? 'white' : 'gray'}
-          fontSize={35}
-        />
+    <Link to={`/${displayText}`}>
+      <div className="flex items-center justify-start cursor-pointer">
+        <div className="sm:px-2 px-0 py-2">
+          <Icon
+            icon={iconName}
+            color={isActive ? 'white' : 'gray'}
+            fontSize={35}
+          />
+        </div>
+        <div
+          className={`text-lg font-semibold px-2 mr-0 ${
+            isActive ? 'text-white' : 'text-gray-400'
+          } hover:text-white`}
+        >
+          {linkTo}
+        </div>
       </div>
-      <div
-        className={`text-lg font-semibold px-2 mr-0 ${
-          isActive ? 'text-white' : 'text-gray-400'
-        } hover:text-white`}
-      >
-        <a href={`/${displayText}`}>{linkTo}</a>
-      </div>
-    </div>
+    </Link>
   );
 };
 

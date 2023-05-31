@@ -35,7 +35,7 @@ const MyMusicComponent = () => {
         <div className="text-xl font-semibold p-4 pl-2">My Songs</div>
         <div className="space-y-3 overflow-auto">
           {songData.map((song, i) => (
-            <SingleCard info={song} key={i++} playSong={playSound} />
+            <SingleCard info={song} key={i} playSong={playSound} />
           ))}
         </div>
       </div>

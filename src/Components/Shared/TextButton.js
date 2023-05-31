@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const TextButton = ({ link }) => {
   let linkTo = link;
@@ -14,9 +15,11 @@ const TextButton = ({ link }) => {
   }
 
   return (
-    <div className="font-normal cursor-pointer m-4 text-lg text-gray-400 hover:text-white">
-      <a href={`/${link}`}>{linkTo}</a>
-    </div>
+    <Link to={`/${link}`}>
+      <div className="font-normal cursor-pointer m-4 text-lg text-gray-400 hover:text-white">
+        {linkTo}
+      </div>
+    </Link>
   );
 };
 

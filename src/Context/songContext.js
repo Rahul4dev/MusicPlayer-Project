@@ -1,14 +1,18 @@
-import React, { createContext } from 'react';
+import { createContext } from 'react';
 
 const songContext = createContext({
   currentSong: null,
   setCurrentSong: (currentSong) => {},
 });
 
-const SongContextProvider = (props) => {
-  return (
-    <songContext.Provider value={''}>{props.children}</songContext.Provider>
-  );
-};
+export default songContext;
 
-export default SongContextProvider;
+// const SongContextProvider = (props) => {
+//   return (
+//     <songContext.Provider value={props.value}>
+//       {props.children}
+//     </songContext.Provider>
+//   );
+// };
+
+// export default SongContextProvider;

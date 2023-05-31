@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 
-import SongContextProvider from './Context/songContext';
+// import SongContextProvider from './Context/songContext';
+import songContext from './Context/songContext';
 
 import { HomeComponent, LoginComponent, SignupComponent } from './Routes';
 import {
@@ -20,7 +21,7 @@ function App() {
       <BrowserRouter>
         {cookie.token ? (
           // Logged In Routes
-          <SongContextProvider value={{ currentSong, setCurrentSong }}>
+          <songContext.Provider value={{ currentSong, setCurrentSong }}>
             <Routes>
               <Route path="/" element={<HelloComponent />} />
               <Route path="/home" element={<LoggedInHomeComponent />} />
@@ -29,7 +30,7 @@ function App() {
 
               <Route path="*" element={<Navigate to="/home" />} />
             </Routes>
-          </SongContextProvider>
+          </songContext.Provider>
         ) : (
           // Logged Out Routes
           <Routes>

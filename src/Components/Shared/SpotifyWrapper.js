@@ -1,22 +1,27 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import { Icon } from '@iconify/react';
 
 import spotify_logo from '../../asset/Spotify-White-Logo.wine.png';
 
-import IconText from '../../Components/Shared/IconText';
-import TextButton from '../../Components/Shared/TextButton';
-import SongPlayer from '../../Components/Songs/SongPlayer';
+import { IconText, TextButton } from '../index';
+import { SongPlayer } from '../index';
+
+import songContext from '../../Context/songContext';
+import { Link } from 'react-router-dom';
 
 const SpotifyWrapper = ({ children }) => {
+  const { currentSong } = useContext(songContext);
   return (
     <div className="h-full w-full  bg-app-black overflow-x-hidden">
-      <div className="h-9/10 w-full flex">
+      <div className={`${currentSong ? 'h-9/10' : 'h-full'} w-full flex`}>
         <div className="sideBar h-full w-1/5  bg-black text-white flex flex-col justify-between pb-10">
           <div>
-            <div className="mt-0 ml-2 sm:w-15 w-25">
-              <img src={spotify_logo} alt="logo" width={220} />
-            </div>
+            <Link to={'/home'}>
+              <div className="mt-0 ml-2 sm:w-15 w-25">
+                <img src={spotify_logo} alt="logo" width={220} />
+              </div>
+            </Link>
             <div className="ml-4">
               <IconText
                 iconName="material-symbols:home-rounded"

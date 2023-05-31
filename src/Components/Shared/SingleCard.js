@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Icon } from '@iconify/react';
+import SongContext from '../../Context/songContext';
 
 const SingleCard = ({ info, playSong }) => {
+  const { currentSong, setCurrentSong } = useContext(SongContext);
+  // console.log(info);
   return (
     <div
       className="flex hover:bg-gray-400 hover:bg-opacity-20 p-2 pl-4 rounded-md"
       onClick={() => {
-        playSong(info.track);
+        setCurrentSong(info);
+        // playSong(info.track);
       }}
     >
       <div
