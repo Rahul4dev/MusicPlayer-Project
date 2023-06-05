@@ -49,7 +49,7 @@ const LoggedInHomeComponent = () => {
     },
   ];
   return (
-    <SpotifyWrapper>
+    <SpotifyWrapper currActiveScreen={'home'}>
       <div className="Playlists p-8 overflow-auto pt-0">
         <PlaylistView titleText={'Focus'} cardsData={focusCardData} />
         <PlaylistView

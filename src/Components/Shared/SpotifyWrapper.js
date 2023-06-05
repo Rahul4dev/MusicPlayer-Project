@@ -10,7 +10,7 @@ import { SongPlayer } from '../index';
 import songContext from '../../Context/songContext';
 import { Link } from 'react-router-dom';
 
-const SpotifyWrapper = ({ children }) => {
+const SpotifyWrapper = ({ children, currActiveScreen }) => {
   const { currentSong } = useContext(songContext);
   return (
     <div className="h-full w-full  bg-app-black overflow-x-hidden">
@@ -26,34 +26,29 @@ const SpotifyWrapper = ({ children }) => {
               <IconText
                 iconName="material-symbols:home-rounded"
                 displayText="Home"
-                isActive={true}
+                isActive={currActiveScreen === 'home'}
               />
               <IconText
                 iconName="ic:outline-search"
                 displayText="Search"
-                isActive={false}
+                isActive={currActiveScreen === 'Search'}
               />
               <IconText
                 iconName="solar:music-library-2-outline"
                 displayText="Library"
-                isActive={false}
+                isActive={currActiveScreen === 'Library'}
               />
               <IconText
                 iconName="game-icons:love-song"
                 displayText="My Music"
-                isActive={false}
+                isActive={currActiveScreen === 'myMusic'}
               />
               <div className="w-full mt-10"></div>
               <IconText
                 iconName="material-symbols:add-box-rounded"
                 displayText="Create Playlist"
-                isActive={false}
               />
-              <IconText
-                iconName="bxs:heart-square"
-                displayText="Liked Songs"
-                isActive={false}
-              />
+              <IconText iconName="bxs:heart-square" displayText="Liked Songs" />
             </div>
           </div>
           <div className="px-5  cursor-pointer ">

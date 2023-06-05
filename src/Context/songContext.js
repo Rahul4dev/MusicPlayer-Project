@@ -3,6 +3,10 @@ import { createContext } from 'react';
 const songContext = createContext({
   currentSong: null,
   setCurrentSong: (currentSong) => {},
+  playing: null,
+  setPlaying: () => {},
+  audioOn: null,
+  setAudioOn: () => {},
 });
 
 export default songContext;

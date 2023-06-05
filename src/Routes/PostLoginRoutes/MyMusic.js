@@ -30,7 +30,7 @@ const MyMusicComponent = () => {
     getData();
   }, []);
   return (
-    <SpotifyWrapper>
+    <SpotifyWrapper currActiveScreen={'myMusic'}>
       <div className="MainContent p-8 pt-2 overflow-auto">
         <div className="text-xl font-semibold p-4 pl-2">My Songs</div>
         <div className="space-y-3 overflow-auto">

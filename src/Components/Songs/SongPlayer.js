@@ -1,24 +1,35 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useLayoutEffect, useRef, useState } from 'react';
 import { Icon } from '@iconify/react';
 import { Howl } from 'howler';
 import songContext from '../../Context/songContext';
 
 const SongPlayer = () => {
-  const { currentSong, setCurrentSong } = useContext(songContext);
+  const {
+    currentSong,
+    setCurrentSong,
+    playing,
+    setPlaying,
+    audioOn,
+    setAudioOn,
+  } = useContext(songContext);
 
   const [showSoundbar, setShowSoundbar] = useState('hidden');
   const [soundMute, setSoundMute] = useState('ic:twotone-volume-up');
-  const [playing, setPlaying] = useState(false);
 
-  const [audioOn, setAudioOn] = useState(null);
+  const firstUpdate = useRef(true);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+    // if statement will prevent first render execution.
+    if (firstUpdate.current) {
+      firstUpdate.current = false;
+      return;
+    }
     if (!currentSong) {
       return;
     }
     changeSong(currentSong.track);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentSong]);
+  }, [currentSong && currentSong.track]);
 
   const changeSong = (songSrc) => {
     if (audioOn) {

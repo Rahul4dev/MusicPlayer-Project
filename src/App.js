@@ -14,6 +14,9 @@ import {
 
 function App() {
   const [currentSong, setCurrentSong] = useState(null);
+  const [playing, setPlaying] = useState(null);
+  const [audioOn, setAudioOn] = useState(null);
+
   const [cookie, setCookie] = useCookies(['token']);
 
   return (
@@ -21,7 +24,16 @@ function App() {
       <BrowserRouter>
         {cookie.token ? (
           // Logged In Routes
-          <songContext.Provider value={{ currentSong, setCurrentSong }}>
+          <songContext.Provider
+            value={{
+              currentSong,
+              setCurrentSong,
+              playing,
+              setPlaying,
+              audioOn,
+              setAudioOn,
+            }}
+          >
             <Routes>
               <Route path="/" element={<HelloComponent />} />
               <Route path="/home" element={<LoggedInHomeComponent />} />
