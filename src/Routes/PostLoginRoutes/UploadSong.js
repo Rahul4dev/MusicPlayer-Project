@@ -83,7 +83,7 @@ const UploadSong = () => {
         {uploadedSongName && (
           <Button
             buttonName={'Submit Song'}
-            className={'ml-4 w-40'}
+            className={'ml-4 w-40 bg-slate-600'}
             onClick={submitSongHandler}
           />
         )}

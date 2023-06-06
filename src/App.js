@@ -10,6 +10,8 @@ import {
   LoggedInHomeComponent,
   MyMusicComponent,
   UploadSongComponent,
+  SearchComponent,
+  LibraryComponent,
 } from './Routes';
 
 function App() {
@@ -39,6 +41,8 @@ function App() {
               <Route path="/home" element={<LoggedInHomeComponent />} />
               <Route path="/uploadSong" element={<UploadSongComponent />} />
               <Route path="/myMusic" element={<MyMusicComponent />} />
+              <Route path="/search" element={<SearchComponent />} />
+              <Route path="/library" element={<LibraryComponent />} />
 
               <Route path="*" element={<Navigate to="/home" />} />
             </Routes>
