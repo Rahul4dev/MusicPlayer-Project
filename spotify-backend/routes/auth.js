@@ -29,14 +29,14 @@ router.post('/register', async (req, res) => {
     userName,
   };
   const newUser = await User.create(newUserData);
-  console.log(newUserData);
+  // console.log(newUserData);
   // step 4: create a authentication object for the new user: create auth token.
 
   const token = await getToken(email, newUser);
 
   // step 5: return the result to the user
   const userToReturn = { ...newUser.toJSON(), token };
-  console.log(userToReturn);
+  // console.log(userToReturn);
   delete userToReturn.password;
   return res.status(200).json(userToReturn);
 });
@@ -55,7 +55,6 @@ router.post('/login', async (req, res) => {
   // since the password is stored in hashed format, we have to compare the password against the hashed password on the same parameters on which the hashed password was created. This comparison is done using the bcrypt algorithm.
 
   const isPasswordValid = await bcrypt.compare(password, user.password);
-  console.log(user.password, isPasswordValid);
   if (!isPasswordValid) {
     return res.status(403).json({ error: 'invalid credentials' });
   }
