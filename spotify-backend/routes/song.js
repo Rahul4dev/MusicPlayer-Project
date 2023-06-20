@@ -69,7 +69,7 @@ router.get(
 
     // name:songName --> exact name matching. Vanilla, Vanila
     // Pattern matching instead of direct name matching.
-    const songs = await Song.find({ name: songName });
+    const songs = await Song.find({ name: songName }).populate('artist');
     return res.status(200).json({ data: songs });
   }
 );
