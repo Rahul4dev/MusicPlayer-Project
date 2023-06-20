@@ -2,21 +2,13 @@ import React from 'react';
 import { Icon } from '@iconify/react';
 import { Link } from 'react-router-dom';
 
-const IconText = ({ iconName, displayText, isActive }) => {
-  let linkTo = displayText;
-  if (displayText === 'My Music') {
-    linkTo = 'My Music';
-    displayText = 'myMusic';
-  } else if (displayText === 'Create Playlist') {
-    linkTo = 'Create Playlist';
-    displayText = 'createPlaylist';
-  } else if (displayText === 'Liked Songs') {
-    linkTo = 'Liked Songs';
-    displayText = 'likedSongs';
-  }
+const IconText = ({ iconName, displayText, isActive, targetLink, onClick }) => {
   return (
-    <Link to={`/${displayText}`}>
-      <div className="flex items-center justify-start cursor-pointer">
+    <Link to={targetLink} className="block">
+      <div
+        className="flex items-center justify-start cursor-pointer"
+        onClick={onClick}
+      >
         <div className="sm:px-2 px-0 py-2">
           <Icon
             icon={iconName}
@@ -25,11 +17,11 @@ const IconText = ({ iconName, displayText, isActive }) => {
           />
         </div>
         <div
-          className={`text-lg font-semibold px-2 mr-0 ${
-            isActive ? 'text-white' : 'text-gray-400'
-          } hover:text-white`}
+          className={`${
+            isActive ? 'text-white' : 'text-gray-500'
+          } text-sm font-semibold hover:text-white`}
         >
-          {linkTo}
+          {displayText}
         </div>
       </div>
     </Link>

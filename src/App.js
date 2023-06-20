@@ -18,6 +18,7 @@ function App() {
   const [currentSong, setCurrentSong] = useState(null);
   const [playing, setPlaying] = useState(null);
   const [audioOn, setAudioOn] = useState(null);
+  const [username, setUsername] = useState('');
 
   const [cookie, setCookie] = useCookies(['token']);
 
@@ -53,9 +54,14 @@ function App() {
             <Route path="/home" element={<HomeComponent />} />
             <Route
               path="/login"
-              element={<LoginComponent cookie={setCookie} />}
+              element={
+                <LoginComponent username={setUsername} cookie={setCookie} />
+              }
             />
-            <Route path="/signup" element={<SignupComponent />} />
+            <Route
+              path="/signup"
+              element={<SignupComponent username={setUsername} />}
+            />
             <Route path="*" element={<Navigate to="/login" />} />
           </Routes>
         )}

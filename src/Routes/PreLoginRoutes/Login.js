@@ -6,7 +6,7 @@ import { useCookies } from 'react-cookie';
 import { makeAuthenticatedPOSTRequest } from '../../utils/serverHelper';
 import { SocialButtons, TextInput } from '../../Components';
 
-const LoginComponent = () => {
+const LoginComponent = ({ username }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -26,6 +26,7 @@ const LoginComponent = () => {
       setCookie('token', token, { path: '/', expires: date });
 
       alert('Log in Success');
+      username = response.userName;
       navigate('/home');
     } else {
       alert('Log in Failure');

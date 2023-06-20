@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 
 import { Icon } from '@iconify/react';
 
@@ -6,14 +6,24 @@ import spotify_logo from '../../asset/Spotify-White-Logo.wine.png';
 
 import { IconText, TextButton } from '../index';
 import { SongPlayer } from '../index';
+import { CreatePlaylistModal } from '../../Modals';
 
 import songContext from '../../Context/songContext';
 import { Link } from 'react-router-dom';
 
 const SpotifyWrapper = ({ children, currActiveScreen }) => {
+  const [isCreatePlaylistModalOpen, setIsCreatePlaylistModalOpen] =
+    useState(false);
   const { currentSong } = useContext(songContext);
   return (
     <div className="h-full w-full  bg-app-black overflow-x-hidden">
+      {isCreatePlaylistModalOpen && (
+        <CreatePlaylistModal
+          closeModal={() => {
+            setIsCreatePlaylistModalOpen(false);
+          }}
+        />
+      )}
       <div className={`${currentSong ? 'h-9/10' : 'h-full'} w-full flex`}>
         <div className="sideBar h-full w-1/5  bg-black text-white flex flex-col justify-between pb-10">
           <div>
@@ -26,27 +36,34 @@ const SpotifyWrapper = ({ children, currActiveScreen }) => {
               <IconText
                 iconName="material-symbols:home-rounded"
                 displayText="Home"
+                targetLink={'/home'}
                 isActive={currActiveScreen === 'home'}
               />
               <IconText
                 iconName="ic:outline-search"
                 displayText="Search"
+                targetLink={'/search'}
                 isActive={currActiveScreen === 'Search'}
               />
               <IconText
                 iconName="solar:music-library-2-outline"
                 displayText="Library"
+                targetLink={'/Library'}
                 isActive={currActiveScreen === 'Library'}
               />
               <IconText
                 iconName="game-icons:love-song"
                 displayText="My Music"
+                targetLink={'/myMusic'}
                 isActive={currActiveScreen === 'myMusic'}
               />
               <div className="w-full mt-10"></div>
               <IconText
                 iconName="material-symbols:add-box-rounded"
                 displayText="Create Playlist"
+                onClick={() => {
+                  setIsCreatePlaylistModalOpen(true);
+                }}
               />
               <IconText iconName="bxs:heart-square" displayText="Liked Songs" />
             </div>
